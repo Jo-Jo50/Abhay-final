@@ -7,16 +7,20 @@ setInterval(() => {
   bgPhotos[currentBG].classList.add("active");
 }, 4000);
 
-/* HEART ON CLICK */
-document.body.addEventListener("click", function (e) {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.textContent = "💖";
-  h.style.left = e.clientX + "px";
-  h.style.top = e.clientY + "px";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 2000);
-});
+/* HEART FLOW GENERATOR */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = "💖";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = 12 + Math.random() * 24 + "px";
+  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+
+// generate many hearts continuously
+setInterval(createHeart, 300);
 
 /* YES/NO LOGIC */
 const yesBtn = document.getElementById("yesBtn");
@@ -37,13 +41,6 @@ noBtn.addEventListener("click", () => {
     let interval = setInterval(() => {
       noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
       noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight) + "px";
-      const trail = document.createElement("div");
-      trail.className = "heart";
-      trail.textContent = "💖";
-      trail.style.left = noBtn.style.left;
-      trail.style.top = noBtn.style.top;
-      document.body.appendChild(trail);
-      setTimeout(() => trail.remove(), 2000);
     }, 400);
     yesBtn.addEventListener("click", () => clearInterval(interval));
   }
@@ -78,7 +75,15 @@ const letterContent = document.getElementById("letterContent");
 letterBtn.addEventListener("click", () => {
   loveLetterPopup.style.display = "block";
   letterContent.textContent = "";
-  const text = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody...\n\nWill you join me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
+  const text = `My Dearest Love,
+
+Every moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody...
+
+Will you join me for a romantic dinner tonight?
+
+With all my love,
+[Your Name]`;
+
   let i = 0;
   const type = setInterval(() => {
     if (i < text.length) letterContent.textContent += text[i++];
