@@ -1,44 +1,11 @@
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* BACKGROUND */
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: sans-serif;
-}
-
-/* Fullscreen background */
-.bg-photo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1s ease;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.bg-photo.active {
-  opacity: 1;
-}
-
-/* HEARTS FLOWING */
+/* Hearts flowing */
 .heart {
   position: absolute;
   font-size: 20px;
   color: #ff4d6d;
   pointer-events: none;
-  animation: floatUp linear forwards;
   user-select: none;
+  animation: floatUp linear forwards;
 }
 
 @keyframes floatUp {
@@ -52,73 +19,22 @@ html, body {
   }
 }
 
-/* QUESTION */
-.question {
-  position: fixed;
-  top: 25%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  background: rgba(255,255,255,0.9);
-  padding: 25px;
-  border-radius: 15px;
-  z-index: 10;
-}
-
-.button-group button {
-  margin: 10px;
-  padding: 12px 24px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: #ff4d6d;
-  color: white;
-  transition: 0.2s;
-}
-
-.button-group button:hover {
-  transform: scale(1.1);
-}
-
-/* MUSIC & LETTER BUTTONS */
-#musicBtn, #letterBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 12px 24px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  background: #ff4d6d;
-  color: white;
-  cursor: pointer;
-  z-index: 10;
-  margin-top: 10px;
-}
-
-/* POPUP LOVE LETTER */
+/* Love letter modal */
 .modal {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 20;
   width: 90%;
   max-width: 500px;
   max-height: 70%;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  overflow-y: auto;
-}
-
-.modal-content {
   padding: 20px;
-  font-size: 18px;
-  color: #333;
-  line-height: 1.5;
+  overflow-y: auto; /* allows scrolling if text is long */
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
 .close {
