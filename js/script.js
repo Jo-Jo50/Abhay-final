@@ -11,19 +11,19 @@ setInterval(() => {
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
-  heart.textContent = "💖";
-  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.innerHTML = "💖";
 
-  // start at bottom
-  heart.style.top = window.innerHeight + "px";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (12 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (5 + Math.random() * 5) + "s";
 
-  heart.style.fontSize = (12 + Math.random() * 30) + "px";
-  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
-  document.body.appendChild(heart);
+  heartContainer.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 9000);
+  setTimeout(() => heart.remove(), 10000);
 }
-setInterval(createHeart, 400); // many hearts continuously
+
+setInterval(createHeart, 500); // reduced load
+
 
 /* YES/NO LOGIC */
 const yesBtn = document.getElementById("yesBtn");
