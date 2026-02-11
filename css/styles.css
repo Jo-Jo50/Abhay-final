@@ -10,6 +10,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-family: sans-serif;
 }
 
 /* Fullscreen background */
@@ -30,13 +31,25 @@ html, body {
   opacity: 1;
 }
 
-/* HEARTS */
-.heart, .no-heart {
+/* HEARTS FLOWING */
+.heart {
   position: absolute;
-  pointer-events: none;
-  font-size: 24px;
+  font-size: 20px;
   color: #ff4d6d;
+  pointer-events: none;
+  animation: floatUp linear forwards;
   user-select: none;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0;
+  }
 }
 
 /* QUESTION */
@@ -94,15 +107,18 @@ html, body {
   z-index: 20;
   width: 90%;
   max-width: 500px;
+  max-height: 70%;
   background: white;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  overflow-y: auto;
 }
 
 .modal-content {
   padding: 20px;
   font-size: 18px;
   color: #333;
+  line-height: 1.5;
 }
 
 .close {
