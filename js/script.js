@@ -38,30 +38,19 @@ setInterval(() => {
 /* === Music Logic === */
 let audio;
 let isPlaying = false;
-const musicBtn = document.getElementById("musicBtn");
 
 function startMusic() {
   if (!audio) {
-    audio = new Audio("audio/music.mp3"); // Replace with your file
+    audio = new Audio("audio/music.mp3"); // your music file
     audio.loop = true;
   }
-  audio.play();
-  isPlaying = true;
-  musicBtn.textContent = "⏸ Pause Music";
-  musicBtn.style.display = "block";
-}
-
-musicBtn.addEventListener("click", () => {
-  if (isPlaying) {
-    audio.pause();
-    isPlaying = false;
-    musicBtn.textContent = "🎵 Play Music";
-  } else {
-    audio.play();
+  audio.play().then(() => {
     isPlaying = true;
-    musicBtn.textContent = "⏸ Pause Music";
-  }
-});
+    console.log("Music started 🎵");
+  }).catch(err => {
+    console.log("Music autoplay blocked by browser, try clicking anywhere.");
+  });
+}
 
 /* === Valentine Question Logic === */
 const valQuestion = document.getElementById("valentineQuestion");
@@ -71,31 +60,33 @@ const letterBtn = document.getElementById("letterBtn");
 const loveLetter = document.getElementById("loveLetter");
 const letterContent = document.getElementById("letterContent");
 
+// Hide letter button initially
+letterBtn.style.display = "none";
+
 noBtn.addEventListener("click", () => {
   alert("Come on, you have to say YES! 💖");
 });
 
 yesBtn.addEventListener("click", () => {
   valQuestion.style.display = "none";
-  startMusic();
-  letterBtn.style.display = "block";
 
-  // Add fade-in animation for letter button
+  // Autoplay music immediately
+  startMusic();
+
+  // Show love letter button
+  letterBtn.style.display = "block";
   letterBtn.classList.add("fade-in");
 
   alert("Yay! 💕 Now click the love letter button to read your surprise!");
 });
 
-/* === Love Letter Button === */
+/* === Love Letter Button Logic === */
 letterBtn.addEventListener("click", (e) => {
   e.stopPropagation();
-
-  // show letter
   if (!loveLetter.style.display || loveLetter.style.display === "none") {
     loveLetter.style.display = "block";
     loveLetter.classList.add("fade-in");
 
-    // Clear previous text
     letterContent.textContent = "";
 
     const text = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world, and your laughter is my favorite melody.\n\nI’ve poured all my heart into this little surprise for you. Will you do me the honor of joining me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
@@ -106,7 +97,7 @@ letterBtn.addEventListener("click", (e) => {
         letterContent.textContent += text[i];
         i++;
       } else clearInterval(interval);
-    }, 40); // typing speed
+    }, 40);
   } else {
     loveLetter.style.display = "none";
   }
