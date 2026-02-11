@@ -1,118 +1,91 @@
-// ====== GLOBAL VARIABLES ======
+/* BACKGROUND IMAGE SLIDER */
+const bgPhotos = document.querySelectorAll(".bg-photo");
+let currentBG = 0;
+setInterval(() => {
+  bgPhotos[currentBG].classList.remove("active");
+  currentBG = (currentBG + 1) % bgPhotos.length;
+  bgPhotos[currentBG].classList.add("active");
+}, 4000);
+
+/* HEART ON CLICK */
+document.body.addEventListener("click", function (e) {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.textContent = "💖";
+  h.style.left = e.clientX + "px";
+  h.style.top = e.clientY + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 2000);
+});
+
+/* YES/NO LOGIC */
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const letterBtn = document.getElementById("letterBtn");
+const valQ = document.getElementById("valentineQuestion");
 const musicBtn = document.getElementById("musicBtn");
-const loveLetter = document.getElementById("loveLetter");
-const letterContent = document.getElementById("letterContent");
+const letterBtn = document.getElementById("letterBtn");
+let audio = new Audio("audio/music.mp3");
+audio.loop = true;
 
-let audio;
+/* NO BUTTON FLOAT + HEART TRAIL */
 let noClicked = false;
-
-// ====== FLOATING HEARTS ON CLICK ======
-document.body.addEventListener("click", (e) => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = "💖";
-  heart.style.left = e.pageX + "px";
-  heart.style.top = e.pageY + "px";
-  document.body.appendChild(heart);
-
-  let topPos = e.pageY;
-  const floatInterval = setInterval(() => {
-    topPos -= 2;
-    heart.style.top = topPos + "px";
-  }, 20);
-
-  setTimeout(() => {
-    clearInterval(floatInterval);
-    heart.remove();
-  }, 2000);
-});
-
-// ====== YES BUTTON ======
-yesBtn.addEventListener("click", () => {
-  alert("Yay! 💕 Click the Love Letter button next!");
-  letterBtn.style.display = "inline-block";
-  musicBtn.style.display = "inline-block";
-});
-
-// ====== NO BUTTON (FLOATING + HEARTS) ======
 noBtn.addEventListener("click", () => {
   if (!noClicked) {
     noClicked = true;
-    alert("Haha! You can’t click No again! 💖");
+    alert("Come on… say YES 💖!");
     noBtn.style.position = "absolute";
-
-    function moveNoButton() {
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-
-      // Heart trail from No button
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = "💖";
-      heart.style.left = x + noBtn.offsetWidth / 2 + "px";
-      heart.style.top = y + noBtn.offsetHeight / 2 + "px";
-      heart.style.fontSize = 12 + Math.random() * 15 + "px";
-      heart.style.color = "#ff4d6d";
-      heart.style.position = "absolute";
-      document.body.appendChild(heart);
-
-      let topPos = y + noBtn.offsetHeight / 2;
-      const floatInterval = setInterval(() => {
-        topPos -= 2;
-        heart.style.top = topPos + "px";
-      }, 20);
-
-      setTimeout(() => {
-        clearInterval(floatInterval);
-        heart.remove();
-      }, 2000);
-    }
-
-    const interval = setInterval(moveNoButton, 500);
-
-    // Stop floating when Yes clicked
+    let interval = setInterval(() => {
+      noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
+      noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight) + "px";
+      const trail = document.createElement("div");
+      trail.className = "heart";
+      trail.textContent = "💖";
+      trail.style.left = noBtn.style.left;
+      trail.style.top = noBtn.style.top;
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 2000);
+    }, 400);
     yesBtn.addEventListener("click", () => clearInterval(interval));
   }
 });
 
-// ====== LOVE LETTER BUTTON ======
-letterBtn.addEventListener("click", () => {
-  loveLetter.style.display = "block";
-  const letterText = `
-Dear My Love 💌,
-
-You are the most amazing person in my life. Every moment with you is a treasure,
-and I can't wait to make more memories together. Your smile lights up my world,
-and your laughter is music to my heart.
-
-So, will you join me for a romantic dinner soon? 🍽️💖
-
-With all my love,
-Your Valentine
-`;
-  letterContent.textContent = ""; // clear first
-
-  let i = 0;
-  const typing = setInterval(() => {
-    if (i < letterText.length) {
-      letterContent.textContent += letterText[i];
-      i++;
-    } else {
-      clearInterval(typing);
-    }
-  }, 30);
+/* YES BUTTON */
+yesBtn.addEventListener("click", () => {
+  valQ.style.display = "none";
+  musicBtn.style.display = "block";
+  letterBtn.style.display = "block";
+  audio.play().catch(() => {
+    console.log("Browser blocked autoplay, click the music button.");
+  });
 });
 
-// ====== MUSIC BUTTON ======
+/* MUSIC BUTTON */
 musicBtn.addEventListener("click", () => {
-  if (!audio) {
-    audio = new Audio("audio/music.mp3"); // Make sure file exists
-    audio.loop = true;
+  if (!audio.paused) {
+    audio.pause();
+    musicBtn.textContent = "🎵 Play Music";
+  } else {
+    audio.play();
+    musicBtn.textContent = "⏸ Pause Music";
   }
-  audio.play();
+});
+
+/* LOVE LETTER POPUP */
+const loveLetterPopup = document.getElementById("loveLetterPopup");
+const closeLetter = document.getElementById("closeLetter");
+const letterContent = document.getElementById("letterContent");
+
+letterBtn.addEventListener("click", () => {
+  loveLetterPopup.style.display = "block";
+  letterContent.textContent = "";
+  const text = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody...\n\nWill you join me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
+  let i = 0;
+  const type = setInterval(() => {
+    if (i < text.length) letterContent.textContent += text[i++];
+    else clearInterval(type);
+  }, 35);
+});
+
+closeLetter.addEventListener("click", () => {
+  loveLetterPopup.style.display = "none";
 });
