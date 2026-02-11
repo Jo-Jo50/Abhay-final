@@ -7,25 +7,32 @@ setInterval(() => {
   bgPhotos[current].classList.add("active");
 }, 4500);
 
-// ====== HEART FLOW ======
+// ====== HEART FLOW (FIXED) ======
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.textContent = "💖";
+
+  // random horizontal position
   heart.style.left = Math.random() * window.innerWidth + "px";
 
-  const size = 12 + Math.random() * 30;
-  heart.style.fontSize = size + "px";
+  // START AT BOTTOM
+  heart.style.top = window.innerHeight + "px";
 
-  // random animation duration
+  // random size
+  heart.style.fontSize = 12 + Math.random() * 28 + "px";
+
+  // random speed
   heart.style.animationDuration = 4 + Math.random() * 4 + "s";
 
   document.body.appendChild(heart);
 
   setTimeout(() => heart.remove(), 8000);
 }
-// spawn many hearts continuously
-setInterval(createHeart, 200);
+
+// spawn many hearts
+setInterval(createHeart, 150);
+
 
 // ====== VALENTINE YES/NO ======
 const yesBtn = document.getElementById("yesBtn");
