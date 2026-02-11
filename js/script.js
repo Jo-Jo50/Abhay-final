@@ -1,4 +1,4 @@
-/* FLOATING HEARTS ON CLICK */
+/* === Floating hearts on click === */
 function spawnHeart(e) {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -10,7 +10,7 @@ function spawnHeart(e) {
 }
 document.body.addEventListener("click", spawnHeart);
 
-/* CONTINUOUS FLOATING HEARTS */
+/* === Continuous floating hearts === */
 function spawnRandomHeart() {
   const heart = document.createElement("div");
   heart.className = "continuous-heart";
@@ -26,23 +26,7 @@ function spawnRandomHeart() {
 }
 setInterval(spawnRandomHeart, 300);
 
-/* BACKGROUND MUSIC */
-let audio;
-let isPlaying = false;
-
-function startMusic() {
-  if (!audio) {
-    audio = new Audio("audio/music.mp3"); // Make sure the file exists
-    audio.loop = true;
-  }
-  audio.play();
-  isPlaying = true;
-  const musicBtn = document.getElementById("musicBtn");
-  musicBtn.textContent = "⏸ Pause Music";
-  musicBtn.style.display = "block"; // Show music button after Yes
-}
-
-/* BACKGROUND IMAGE SLIDER */
+/* === Background Image Slider === */
 const bgPhotos = document.querySelectorAll(".bg-photo");
 let current = 0;
 setInterval(() => {
@@ -51,53 +35,23 @@ setInterval(() => {
   bgPhotos[current].classList.add("active");
 }, 5000);
 
-/* VALENTINE QUESTION LOGIC */
-const valQuestion = document.getElementById("valentineQuestion");
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const letterBtn = document.getElementById("letterBtn");
-
-noBtn.addEventListener("click", () => {
-  alert("Come on, you have to say YES! 💖");
-});
-
-yesBtn.addEventListener("click", () => {
-  valQuestion.style.display = "none"; // Hide question
-  startMusic(); // Auto-start music
-  letterBtn.style.display = "block"; // Show love letter button
-  alert("Yay! 💕 Now click the love letter button to read your surprise!");
-});
-
-/* LOVE LETTER */
-const loveLetter = document.getElementById("loveLetter");
-const letterContent = document.getElementById("letterContent");
-
-function typeLetterText(element, text, speed = 50) {
-  element.textContent = "";
-  let i = 0;
-  const interval = setInterval(() => {
-    if (i < text.length) {
-      element.textContent += text[i];
-      i++;
-    } else clearInterval(interval);
-  }, speed);
-}
-
-function showLetter(e) {
-  e.stopPropagation();
-  if (!loveLetter.classList.contains("show")) {
-    loveLetter.classList.add("show");
-    const text = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world, and your laughter is my favorite melody.\n\nI’ve poured all my heart into this little surprise for you. Will you do me the honor of joining me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
-    typeLetterText(letterContent, text, 40);
-  } else {
-    loveLetter.classList.remove("show");
-  }
-}
-
-/* MUSIC BUTTON TOGGLE */
+/* === Music Logic === */
+let audio;
+let isPlaying = false;
 const musicBtn = document.getElementById("musicBtn");
-musicBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
+
+function startMusic() {
+  if (!audio) {
+    audio = new Audio("audio/music.mp3"); // Replace with your file
+    audio.loop = true;
+  }
+  audio.play();
+  isPlaying = true;
+  musicBtn.textContent = "⏸ Pause Music";
+  musicBtn.style.display = "block";
+}
+
+musicBtn.addEventListener("click", () => {
   if (isPlaying) {
     audio.pause();
     isPlaying = false;
@@ -109,4 +63,39 @@ musicBtn.addEventListener("click", (e) => {
   }
 });
 
+/* === Valentine Question Logic === */
+const valQuestion = document.getElementById("valentineQuestion");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const letterBtn = document.getElementById("letterBtn");
+const loveLetter = document.getElementById("loveLetter");
+const letterContent = document.getElementById("letterContent");
 
+noBtn.addEventListener("click", () => {
+  alert("Come on, you have to say YES! 💖");
+});
+
+yesBtn.addEventListener("click", () => {
+  valQuestion.style.display = "none";
+  startMusic();
+  letterBtn.style.display = "block";
+  alert("Yay! 💕 Now click the love letter button to read your surprise!");
+});
+
+/* === Love Letter Button === */
+letterBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (!loveLetter.style.display || loveLetter.style.display === "none") {
+    loveLetter.style.display = "block";
+    const text = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world, and your laughter is my favorite melody.\n\nI’ve poured all my heart into this little surprise for you. Will you do me the honor of joining me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        letterContent.textContent += text[i];
+        i++;
+      } else clearInterval(interval);
+    }, 40);
+  } else {
+    loveLetter.style.display = "none";
+  }
+});
