@@ -79,22 +79,34 @@ yesBtn.addEventListener("click", () => {
   valQuestion.style.display = "none";
   startMusic();
   letterBtn.style.display = "block";
+
+  // Add fade-in animation for letter button
+  letterBtn.classList.add("fade-in");
+
   alert("Yay! 💕 Now click the love letter button to read your surprise!");
 });
 
 /* === Love Letter Button === */
 letterBtn.addEventListener("click", (e) => {
   e.stopPropagation();
+
+  // show letter
   if (!loveLetter.style.display || loveLetter.style.display === "none") {
     loveLetter.style.display = "block";
+    loveLetter.classList.add("fade-in");
+
+    // Clear previous text
+    letterContent.textContent = "";
+
     const text = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world, and your laughter is my favorite melody.\n\nI’ve poured all my heart into this little surprise for you. Will you do me the honor of joining me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
+
     let i = 0;
     const interval = setInterval(() => {
       if (i < text.length) {
         letterContent.textContent += text[i];
         i++;
       } else clearInterval(interval);
-    }, 40);
+    }, 40); // typing speed
   } else {
     loveLetter.style.display = "none";
   }
