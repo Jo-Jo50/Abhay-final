@@ -32,7 +32,7 @@ let isPlaying = false;
 function toggleMusic(e) {
   e.stopPropagation();
   if (!audio) {
-    audio = new Audio("audio/music.mp3");
+    audio = new Audio("audio/music.mp3/Prateek Kuhad - 100 Words (Acoustic) - Prateek Kuhad");
     audio.loop = true;
   }
   if (isPlaying) {
