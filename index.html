@@ -8,25 +8,37 @@
 </head>
 <body>
 
+  <!-- Background Images -->
+  <div id="backgrounds">
+    <img src="images/IMG1.jpg" class="bg-photo active">
+    <img src="images/IMG2.jpg" class="bg-photo">
+    <img src="images/IMG3.jpg" class="bg-photo">
+    <img src="images/IMG4.jpg" class="bg-photo">
+    <img src="images/IMG5.jpg" class="bg-photo">
+  </div>
+
+  <!-- Floating Hearts -->
+  <div id="hearts-container"></div>
+
   <!-- Music Button -->
   <button id="musicBtn" onclick="toggleMusic(event)">🎵 Play Music</button>
 
-  <!-- Love Letter -->
-  <div id="loveLetter" class="love-letter" style="display:none;">
-    <p id="letterContent"></p>
+  <!-- Valentine Question -->
+  <div id="valentineQuestion" class="question">
+    <p>Will you be my Valentine? 💖</p>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
   </div>
+
+  <!-- Love Letter Button -->
   <button id="letterBtn" onclick="showLetter(event)">💌 Open Your Love Letter</button>
 
-  <!-- Image Gallery -->
-  <div id="photos" class="photos">
-  <img src="images/IMG1.jpg" alt="Photo 1" class="photo">
-  <img src="images/IMG2.jpg" alt="Photo 2" class="photo">
-  <img src="images/IMG3.jpg" alt="Photo 3" class="photo">
-  <img src="images/IMG4.jpg" alt="Photo 4" class="photo">
-  <img src="images/IMG5.jpg" alt="Photo 5" class="photo">
+  <!-- Love Letter Modal -->
+  <div id="loveLetter" class="love-letter">
+    <p id="letterContent"></p>
   </div>
-
 
   <script src="js/script.js"></script>
 </body>
 </html>
+
