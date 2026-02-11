@@ -85,3 +85,22 @@ body {
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+/* Ensure buttons and question are on top */
+#valentineQuestion,
+#letterBtn,
+#musicBtn {
+  position: relative;
+  z-index: 10;
+}
+
+/* Make love letter on top too */
+#loveLetter {
+  position: relative;
+  z-index: 10;
+}
+
+/* Make hearts appear above background but below buttons */
+.heart {
+  z-index: 5;
+}
