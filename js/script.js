@@ -89,7 +89,7 @@ const letterContent = document.getElementById("letterContent");
 
 letterBtn.addEventListener("click", () => {
   modal.style.display = "block";
-  letterContent.textContent = ""; // clear previous content
+  letterContent.innerHTML = ""; // clear first
 
   const text = `My Dearest Annie, My Love, My Beautiful Queen,
   
@@ -110,12 +110,13 @@ letterBtn.addEventListener("click", () => {
             
             Dumb, Dumb, Dumb`;
 
-  let i = 0;
-  const typeWriter = setInterval(() => {
-    if (i < text.length) {
-      letterContent.textContent += text[i++];
-    } else clearInterval(typeWriter);
-  }, 30);
+   let i = 0;
+   const typeWriter = setInterval(() => {
+     if (i < text.length) {
+       letterContent.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+       i++;
+     } else clearInterval(typeWriter);
+   }, 30);
 });
 
 // Close modal
