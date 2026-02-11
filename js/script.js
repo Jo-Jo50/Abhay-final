@@ -29,20 +29,17 @@ setInterval(spawnRandomHeart, 300);
 /* BACKGROUND MUSIC */
 let audio;
 let isPlaying = false;
-function toggleMusic(e) {
-  e.stopPropagation();
+
+function startMusic() {
   if (!audio) {
-    audio = new Audio("audio/music.mp3/Prateek Kuhad - 100 Words (Acoustic) - Prateek Kuhad");
+    audio = new Audio("audio/music.mp3"); // Make sure the file exists
     audio.loop = true;
   }
-  if (isPlaying) {
-    audio.pause();
-    document.getElementById("musicBtn").textContent = "🎵 Play Music";
-  } else {
-    audio.play();
-    document.getElementById("musicBtn").textContent = "⏸ Pause Music";
-  }
-  isPlaying = !isPlaying;
+  audio.play();
+  isPlaying = true;
+  const musicBtn = document.getElementById("musicBtn");
+  musicBtn.textContent = "⏸ Pause Music";
+  musicBtn.style.display = "block"; // Show music button after Yes
 }
 
 /* BACKGROUND IMAGE SLIDER */
@@ -65,8 +62,9 @@ noBtn.addEventListener("click", () => {
 });
 
 yesBtn.addEventListener("click", () => {
-  valQuestion.style.display = "none";
-  letterBtn.style.display = "block";
+  valQuestion.style.display = "none"; // Hide question
+  startMusic(); // Auto-start music
+  letterBtn.style.display = "block"; // Show love letter button
   alert("Yay! 💕 Now click the love letter button to read your surprise!");
 });
 
@@ -95,4 +93,20 @@ function showLetter(e) {
     loveLetter.classList.remove("show");
   }
 }
+
+/* MUSIC BUTTON TOGGLE */
+const musicBtn = document.getElementById("musicBtn");
+musicBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (isPlaying) {
+    audio.pause();
+    isPlaying = false;
+    musicBtn.textContent = "🎵 Play Music";
+  } else {
+    audio.play();
+    isPlaying = true;
+    musicBtn.textContent = "⏸ Pause Music";
+  }
+});
+
 
