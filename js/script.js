@@ -59,15 +59,19 @@ yesBtn.addEventListener("click", () => {
 });
 
 // ====== MUSIC BUTTON ======
-let audio;
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
+
 musicBtn.addEventListener("click", () => {
-  if (!audio) {
-    audio = new Audio("audio/music.mp3"); // must exist
-    audio.loop = true;
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicBtn.textContent = "⏸ Pause Music";
+  } else {
+    bgMusic.pause();
+    musicBtn.textContent = "🎵 Play Music";
   }
-  audio.play();
-  musicBtn.textContent = "⏸ Pause Music";
 });
+
 
 // ====== LOVE LETTER POPUP ======
 const loveLetterPopup = document.getElementById("loveLetterPopup");
