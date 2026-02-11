@@ -56,13 +56,17 @@ bgMusic.loop = true;
 
 musicBtn.addEventListener("click", () => {
   if (bgMusic.paused) {
-    bgMusic.play();
-    musicBtn.textContent = "⏸ Pause Music";
+    bgMusic.play().then(() => {
+      musicBtn.innerHTML = "⏸ Pause Music";
+    }).catch(error => {
+      console.log("Playback failed:", error);
+    });
   } else {
     bgMusic.pause();
-    musicBtn.textContent = "🎵 Play Music";
+    musicBtn.innerHTML = "🎵 Play Music";
   }
 });
+
 
 /* LOVE LETTER POPUP */
 const modal = document.getElementById("loveLetterPopup");
