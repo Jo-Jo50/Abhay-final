@@ -93,7 +93,7 @@ letterBtn.addEventListener("click", () => {
 
   const text = `My Dearest Annie, My Love, My Beautiful Queen,
   
-            I just wanted to take a minute to tell you how much I love you. You are basically my favorite human, my partner-in-crime, my heart. And I just wanted to make sure you knew that—loudly and clearly.<br><br>
+            I just wanted to take a minute to tell you how much I love you. You are basically my favorite human, my partner-in-crime, my heart. And I just wanted to make sure you knew that—loudly and clearly.
 
             I keep catching myself smiling for no reason, and then I realize it is because I am thinking about you. Somehow, you have this magical ability to make life feel lighter, funnier, and more like something I actually want to show up for every day. I love how you make ordinary things - like grocery shopping or walking to the car - feel like little adventures. And I love how you make me want to be a better person.
 
