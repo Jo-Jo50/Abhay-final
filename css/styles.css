@@ -1,18 +1,13 @@
-/* RESET */
-* {
+/* ========== FULL SCREEN BACKGROUND ========== */
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-/* BACKGROUND */
-html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-family: Arial, sans-serif;
 }
 
-/* Fullscreen background */
 .bg-photo {
   position: fixed;
   top: 0;
@@ -21,7 +16,7 @@ html, body {
   height: 100vh;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s ease;
   pointer-events: none;
   z-index: -1;
 }
@@ -30,50 +25,68 @@ html, body {
   opacity: 1;
 }
 
-/* HEARTS */
-.heart, .no-heart {
+/* ========== HEART FLOWING EFFECT ========== */
+.heart {
   position: absolute;
   pointer-events: none;
-  font-size: 24px;
-  color: #ff4d6d;
   user-select: none;
+  font-size: 22px;
+  animation: floatUp linear forwards;
+  color: #ff4d6d;
 }
 
-/* QUESTION */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-140vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ========== QUESTION BOX ========== */
 .question {
   position: fixed;
-  top: 25%;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
-  text-align: center;
   background: rgba(255,255,255,0.9);
   padding: 25px;
-  border-radius: 15px;
+  border-radius: 12px;
+  text-align: center;
   z-index: 10;
 }
 
+.question p {
+  font-size: 28px;
+  color: #d60050;
+  margin-bottom: 15px;
+}
+
 .button-group button {
-  margin: 10px;
-  padding: 12px 24px;
+  margin: 8px;
+  padding: 12px 26px;
   font-size: 18px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   background: #ff4d6d;
   color: white;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
 .button-group button:hover {
   transform: scale(1.1);
 }
 
-/* MUSIC & LETTER BUTTONS */
+/* ========== MUSIC & LOVE LETTER BUTTONS ========== */
 #musicBtn, #letterBtn {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 12px 24px;
+  bottom: 25px;
+  right: 25px;
+  padding: 10px 22px;
   font-size: 18px;
   border: none;
   border-radius: 8px;
@@ -81,32 +94,31 @@ html, body {
   color: white;
   cursor: pointer;
   z-index: 10;
-  margin-top: 10px;
+  margin-left: 10px;
 }
 
-/* POPUP LOVE LETTER */
+/* ========== LOVE LETTER POPUP ========== */
 .modal {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 20;
   width: 90%;
-  max-width: 500px;
+  max-width: 480px;
+  max-height: 70%;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-}
-
-.modal-content {
+  border-radius: 12px;
   padding: 20px;
-  font-size: 18px;
-  color: #333;
+  overflow-y: auto; /* Scroll if text is too long */
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  z-index: 15;
 }
 
 .close {
   float: right;
-  font-size: 24px;
+  font-size: 26px;
   cursor: pointer;
+  margin-top: -10px;
+  margin-right: -5px;
 }
