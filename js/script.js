@@ -38,9 +38,6 @@ let noClicked = false;
 noBtn.addEventListener("click", () => {
   if (!noClicked) {
     noClicked = true;
-    if (!noClicked) {
-    noClicked = true;
-    alert("Come on… say YES 💖!");
     noBtn.style.position = "absolute";
     setInterval(() => {
       noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
