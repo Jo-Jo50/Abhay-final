@@ -100,3 +100,46 @@
   cursor: pointer;
   margin-bottom: 10px;
 }
+
+/* Prevent hearts from affecting layout */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  color: #ff4d6d;
+  animation: floatUp linear forwards;
+  will-change: transform;
+  pointer-events: none; /* important so buttons remain clickable */
+}
+
+/* Ensure modal content wraps text properly */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 480px;
+  max-height: 70%;
+  background: white;
+  padding: 20px;
+  overflow-y: auto; /* vertical scroll */
+  overflow-wrap: break-word; /* prevent horizontal overflow */
+  word-break: break-word;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  z-index: 200;
+}
+
+/* Smooth animation for hearts */
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-120vh) scale(1.2);
+    opacity: 0;
+  }
+}
