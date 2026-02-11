@@ -63,12 +63,55 @@ const letterContent = document.getElementById("letterContent");
 // Hide letter button initially
 letterBtn.style.display = "none";
 
-noBtn.addEventListener("click", () => {
-  alert("Come on, you have to say YES! 💖");
+let noClicked = false;
+
+noBtn.addEventListener("click", (e) => {
+  if (!noClicked) {
+    noClicked = true;
+    alert("Haha! You can’t click No again! 💖");
+
+    // Make button absolute
+    noBtn.style.position = "absolute";
+
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      // Spawn little hearts from button
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+      heart.style.left = x + noBtn.offsetWidth / 2 + "px";
+      heart.style.top = y + noBtn.offsetHeight / 2 + "px";
+      const size = 10 + Math.random() * 15;
+      heart.style.fontSize = size + "px";
+      heart.style.color = "#ff4d6d";
+      heart.style.position = "absolute";
+      document.body.appendChild(heart);
+
+      // Animate hearts floating upwards
+      let topPos = y + noBtn.offsetHeight / 2;
+      const floatInterval = setInterval(() => {
+        topPos -= 2;
+        heart.style.top = topPos + "px";
+      }, 20);
+
+      setTimeout(() => {
+        clearInterval(floatInterval);
+        heart.remove();
+      }, 2000);
+    }
+
+    // Move and spawn hearts every 500ms
+    const interval = setInterval(moveNoButton, 500);
+
+    // Stop floating when Yes is clicked
+    yesBtn.addEventListener("click", () => clearInterval(interval));
+  }
 });
 
-yesBtn.addEventListener("click", () => {
-  valQuestion.style.display = "none";
 
   // Autoplay music immediately
   startMusic();
