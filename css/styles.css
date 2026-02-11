@@ -19,16 +19,16 @@
 /* Hearts flow from bottom up */
 .heart {
   position: absolute;
-  pointer-events: none;
-  user-select: none;
-  font-size: 22px;
+  font-size: 20px;
   color: #ff4d6d;
   animation: floatUp linear forwards;
+  will-change: transform;
 }
+
 
 @keyframes floatUp {
   from { transform: translateY(0) rotate(0deg); opacity: 1; }
-  to   { transform: translateY(-140vh) rotate(360deg); opacity: 0; }
+  to   { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
 }
 
 /* Question box above hearts */
