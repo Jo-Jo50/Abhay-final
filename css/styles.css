@@ -1,90 +1,49 @@
-/* General Body */
-body {
-  margin: 0;
-  font-family: sans-serif;
-  overflow: hidden;
-  height: 100vh;
-}
-
-/* Background Images */
-#backgrounds {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  overflow: hidden;
-  z-index: -2;
-}
-
+/* === Fullscreen background photos === */
 .bg-photo {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   opacity: 0;
   transition: opacity 1s ease;
+  z-index: -2;
 }
 
 .bg-photo.active {
   opacity: 1;
 }
 
-/* Floating Hearts */
-.heart {
-  position: absolute;
-  font-size: 24px;
+/* === Hearts === */
+.heart, .continuous-heart {
+  position: fixed;
+  font-size: 25px;
   pointer-events: none;
-  animation: floatUp 2s ease-out forwards;
-}
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-150px); opacity: 0; }
+  z-index: 100;
 }
 
-/* Continuous hearts */
-@keyframes floatRandom {
-  0% { transform: translateY(100vh) scale(0); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-}
 .continuous-heart {
-  position: fixed;
-  pointer-events: none;
-  font-size: 24px;
-  animation-name: floatRandom;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  animation: floatUp linear infinite;
 }
 
-/* Buttons */
-button {
-  position: fixed;
-  z-index: 1000;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  background: #ff4d6d;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 10px;
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-50px); opacity: 0; }
 }
 
-#musicBtn { top: 10px; left: 10px; }
-#letterBtn { top: 10px; right: 10px; display: none; }
-
-/* Valentine Question Centered */
+/* === Valentine Question === */
 .question {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 40px;
+  background: rgba(255,255,255,0.95);
+  padding: 40px 30px;
   border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+  box-shadow: 0 0 20px rgba(255,77,109,0.5);
   z-index: 1000;
+  max-width: 90%;
 }
 
 .question p {
@@ -110,33 +69,37 @@ button {
   transform: scale(1.1);
 }
 
-
-/* Love Letter Modal */
-.love-letter {
-  width: 80%;
-  max-width: 400px;
-  background: #fff0f5;
-  border: 2px solid #ff4d6d;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 0 20px rgba(255,77,109,0.5);
+/* === Love Letter === */
+#loveLetter {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  opacity: 0;
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  z-index: 999;
-}
-.love-letter.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-.love-letter p {
-  font-family: 'Cursive', sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
-  color: #ff1a75;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 15px;
+  display: none;
+  z-index: 1000;
   white-space: pre-wrap;
+  font-family: "Arial", sans-serif;
+  font-size: 18px;
+  color: #ff1a75;
+  box-shadow: 0 0 20px rgba(255,77,109,0.5);
 }
 
+/* === Buttons for Love Letter & Music === */
+#letterBtn, #musicBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #ff4d6d;
+  color: white;
+  z-index: 1001;
+  margin-left: 10px;
+}
