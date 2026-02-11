@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine? 💕</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Music Button -->
+  <button id="musicBtn" onclick="toggleMusic(event)">🎵 Play Music</button>
+
+  <!-- Love Letter -->
+  <div id="loveLetter" class="love-letter" style="display:none;">
+    <p id="letterContent"></p>
+  </div>
+  <button id="letterBtn" onclick="showLetter(event)">💌 Open Your Love Letter</button>
+
+  <!-- Image Gallery -->
+  <div id="photos" class="photos">
+    <img src="images/example.jpg" alt="Us together" class="photo">
+    <!-- Add more images by copying the line above and updating the src -->
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
