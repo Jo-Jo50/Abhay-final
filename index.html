@@ -1,47 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Be My Valentine? 💕</title>
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? 💕</title>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <!-- Background Images -->
-  <div id="backgrounds">
-    <img src="images/IMG1.jpg" class="bg-photo active">
-    <img src="images/IMG2.jpg" class="bg-photo">
-    <img src="images/IMG3.jpg" class="bg-photo">
-    <img src="images/IMG4.jpg" class="bg-photo">
-    <img src="images/IMG5.jpg" class="bg-photo">
+<!-- Background Photos -->
+<img src="images/IMG1.jpg" class="bg-photo active">
+<img src="images/IMG2.jpg" class="bg-photo">
+<img src="images/IMG3.jpg" class="bg-photo">
+<img src="images/IMG4.jpg" class="bg-photo">
+<img src="images/IMG5.jpg" class="bg-photo">
+
+<!-- Valentine Question -->
+<div id="valentineQuestion" class="question">
+  <p>Will you be my Valentine? 💖</p>
+  <div class="button-group">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
   </div>
+</div>
 
-  <!-- Floating Hearts -->
-  <div id="hearts-container"></div>
+<!-- Love Letter Button -->
+<button id="letterBtn" style="display:none;">📜 Love Letter</button>
 
-  <!-- Music Button -->
-  <button id="musicBtn" onclick="toggleMusic(event)">🎵 Play Music</button>
+<!-- Love Letter -->
+<div id="loveLetter">
+  <pre id="letterContent"></pre>
+</div>
 
-  <!-- Valentine Question -->
-  <div id="valentineQuestion" class="question">
-    <p>Will you be my Valentine? 💖</p>
-    <div class="button-group">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
-    </div>
-  </div>
+<!-- Music Button -->
+<button id="musicBtn" style="display:none;">🎵 Play Music</button>
 
-
-  <!-- Love Letter Button -->
-  <button id="letterBtn" onclick="showLetter(event)">💌 Open Your Love Letter</button>
-
-  <!-- Love Letter Modal -->
-  <div id="loveLetter" class="love-letter">
-    <p id="letterContent"></p>
-  </div>
-
-  <script src="js/script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
-
