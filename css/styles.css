@@ -103,3 +103,14 @@
   z-index: 1001;
   margin-left: 10px;
 }
+
+/* === Fade-in animation === */
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnim 1s forwards;
+}
+
+@keyframes fadeInAnim {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
