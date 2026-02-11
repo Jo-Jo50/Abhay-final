@@ -18,17 +18,23 @@
 
 /* Hearts flow from bottom up */
 .heart {
-  position: absolute;
+  position: fixed;
+  bottom: -20px;
   font-size: 20px;
   color: #ff4d6d;
   animation: floatUp linear forwards;
   will-change: transform;
 }
 
-
 @keyframes floatUp {
-  from { transform: translateY(0) rotate(0deg); opacity: 1; }
-  to   { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
 }
 
 /* Question box above hearts */
