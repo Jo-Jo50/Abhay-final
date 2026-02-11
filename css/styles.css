@@ -1,4 +1,6 @@
-/* Make sure nothing blocks buttons — pointer-events none on BG */
+/* =========================
+   BACKGROUND IMAGE
+========================= */
 .bg-photo {
   position: fixed;
   top: 0;
@@ -7,7 +9,7 @@
   height: 100vh;
   object-fit: cover;
   opacity: 0;
-  pointer-events: none; /* Important so buttons are clickable */ 
+  pointer-events: none; /* buttons clickable */
   z-index: -1;
   transition: opacity 1.2s ease;
 }
@@ -16,37 +18,43 @@
   opacity: 1;
 }
 
-/* Hearts flow from bottom up */
+/* =========================
+   HEARTS FLOW
+========================= */
 .heart {
   position: fixed;
-  bottom: -20px;
+  bottom: -30px; /* start slightly below screen */
   font-size: 20px;
   color: #ff4d6d;
   animation: floatUp linear forwards;
   will-change: transform;
+  pointer-events: none; /* allow clicks through hearts */
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(0);
+  0% {
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
-  to {
-    transform: translateY(-120vh);
+  100% {
+    transform: translateY(-120vh) scale(1.3);
     opacity: 0;
   }
 }
 
-/* Question box above hearts */
+/* =========================
+   QUESTION BOX
+========================= */
 .question {
   position: fixed;
   top: 30%;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.95);
   padding: 25px;
-  border-radius: 10px;
-  z-index: 100; /* high layer so it’s clickable */
+  border-radius: 12px;
+  z-index: 100;
+  text-align: center;
 }
 
 .button-group button {
@@ -59,9 +67,16 @@
   border: none;
   border-radius: 8px;
   z-index: 110;
+  transition: transform 0.2s ease;
 }
 
-/* Buttons after Yes */
+.button-group button:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   MUSIC & LOVE LETTER BUTTONS
+========================= */
 #musicBtn, #letterBtn {
   position: fixed;
   bottom: 20px;
@@ -74,9 +89,12 @@
   border: none;
   border-radius: 8px;
   z-index: 100;
+  display: none; /* show after Yes click */
 }
 
-/* Love Letter Modal */
+/* =========================
+   LOVE LETTER MODAL
+========================= */
 .modal {
   display: none;
   position: fixed;
@@ -88,9 +106,11 @@
   max-height: 70%;
   background: white;
   padding: 20px;
-  overflow-y: auto; /* text will scroll here */
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
   z-index: 200;
 }
 
@@ -101,45 +121,22 @@
   margin-bottom: 10px;
 }
 
-/* Prevent hearts from affecting layout */
-.heart {
-  position: fixed;
-  bottom: -20px;
-  font-size: 20px;
-  color: #ff4d6d;
-  animation: floatUp linear forwards;
-  will-change: transform;
-  pointer-events: none; /* important so buttons remain clickable */
+/* =========================
+   NO BUTTON FLOAT PREVENT SHAKE
+========================= */
+#noBtn {
+  position: absolute;
+  transition: left 0.3s ease, top 0.3s ease; /* smooth movement */
 }
 
-/* Ensure modal content wraps text properly */
-.modal {
-  display: none;
+/* =========================
+   OPTIONAL: DENSER HEARTS
+========================= */
+body::after {
+  content: "";
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 480px;
-  max-height: 70%;
-  background: white;
-  padding: 20px;
-  overflow-y: auto; /* vertical scroll */
-  overflow-wrap: break-word; /* prevent horizontal overflow */
-  word-break: break-word;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  z-index: 200;
-}
-
-/* Smooth animation for hearts */
-@keyframes floatUp {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-120vh) scale(1.2);
-    opacity: 0;
-  }
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
 }
