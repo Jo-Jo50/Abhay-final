@@ -1,4 +1,4 @@
-/* CLICK HEARTS */
+/* FLOATING HEARTS ON CLICK */
 function spawnHeart(e) {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -10,35 +10,27 @@ function spawnHeart(e) {
 }
 document.body.addEventListener("click", spawnHeart);
 
-/* FLOATING CONFETTI HEARTS */
+/* CONTINUOUS FLOATING HEARTS */
 function spawnRandomHeart() {
   const heart = document.createElement("div");
   heart.className = "continuous-heart";
   heart.textContent = "💖";
-
   heart.style.left = Math.random() * window.innerWidth + "px";
   const size = 15 + Math.random() * 35;
   heart.style.fontSize = size + "px";
-
-  const colors = ["#ff4d6d", "#ff85a2", "#ffb3c6", "#ffc9d9", "#ff7f91"];
+  const colors = ["#ff4d6d","#ff85a2","#ffb3c6","#ffc9d9","#ff7f91"];
   heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-
-  const duration = 4 + Math.random() * 4;
-  heart.style.animationDuration = duration + "s";
-
-  const drift = Math.random() * 200 - 100;
-  heart.style.transform = `translateX(${drift}px)`;
-
+  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
   document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), duration * 1000);
+  setTimeout(() => heart.remove(), 8000);
 }
 setInterval(spawnRandomHeart, 300);
 
 /* BACKGROUND MUSIC */
 let audio;
 let isPlaying = false;
-function toggleMusic(event) {
-  event.stopPropagation();
+function toggleMusic(e) {
+  e.stopPropagation();
   if (!audio) {
     audio = new Audio("audio/music.mp3");
     audio.loop = true;
@@ -53,49 +45,54 @@ function toggleMusic(event) {
   isPlaying = !isPlaying;
 }
 
-/* LOVE LETTER TYPING & SPARKLES */
+/* BACKGROUND IMAGE SLIDER */
+const bgPhotos = document.querySelectorAll(".bg-photo");
+let current = 0;
+setInterval(() => {
+  bgPhotos[current].classList.remove("active");
+  current = (current + 1) % bgPhotos.length;
+  bgPhotos[current].classList.add("active");
+}, 5000);
+
+/* VALENTINE QUESTION LOGIC */
+const valQuestion = document.getElementById("valentineQuestion");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const letterBtn = document.getElementById("letterBtn");
+
+noBtn.addEventListener("click", () => {
+  alert("Come on, you have to say YES! 💖");
+});
+
+yesBtn.addEventListener("click", () => {
+  valQuestion.style.display = "none";
+  letterBtn.style.display = "block";
+  alert("Yay! 💕 Now click the love letter button to read your surprise!");
+});
+
+/* LOVE LETTER */
+const loveLetter = document.getElementById("loveLetter");
+const letterContent = document.getElementById("letterContent");
+
 function typeLetterText(element, text, speed = 50) {
   element.textContent = "";
   let i = 0;
-  const typingInterval = setInterval(() => {
+  const interval = setInterval(() => {
     if (i < text.length) {
       element.textContent += text[i];
       i++;
-    } else {
-      clearInterval(typingInterval);
-    }
+    } else clearInterval(interval);
   }, speed);
 }
 
-function showLetter(event) {
-  event.stopPropagation();
-  const letter = document.getElementById("loveLetter");
-  const letterContent = document.getElementById("letterContent");
-
-  if (!letter.classList.contains("show")) {
-    letter.style.display = "block";
-    setTimeout(() => letter.classList.add("show"), 50);
-    document.getElementById("letterBtn").textContent = "💌 Close Love Letter";
-
-    const loveText = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world, and your laughter is my favorite melody.\n\nI’ve poured all my heart into this little surprise for you. Will you do me the honor of joining me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
-    typeLetterText(letterContent, loveText, 40);
-
-    for (let i = 0; i < 20; i++) {
-      const sparkle = document.createElement("div");
-      sparkle.className = "love-letter-heart";
-      sparkle.textContent = "💖";
-
-      const rect = letter.getBoundingClientRect();
-      sparkle.style.left = Math.random() * rect.width + "px";
-      sparkle.style.top = Math.random() * rect.height + "px";
-
-      letter.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 3000 + Math.random() * 2000);
-    }
-
+function showLetter(e) {
+  e.stopPropagation();
+  if (!loveLetter.classList.contains("show")) {
+    loveLetter.classList.add("show");
+    const text = `My Dearest Love,\n\nEvery moment with you feels magical. Your smile lights up my world, and your laughter is my favorite melody.\n\nI’ve poured all my heart into this little surprise for you. Will you do me the honor of joining me for a romantic dinner tonight?\n\nWith all my love,\n[Your Name]`;
+    typeLetterText(letterContent, text, 40);
   } else {
-    letter.classList.remove("show");
-    setTimeout(() => letter.style.display = "none", 800);
-    document.getElementById("letterBtn").textContent = "💌 Open Your Love Letter";
+    loveLetter.classList.remove("show");
   }
 }
+
