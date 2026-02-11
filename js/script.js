@@ -1,73 +1,58 @@
-// ====== BACKGROUND IMAGE SLIDER ======
+/* BACKGROUND IMAGE SLIDER */
 const bgPhotos = document.querySelectorAll(".bg-photo");
-let current = 0;
+let currentIndex = 0;
 setInterval(() => {
-  bgPhotos[current].classList.remove("active");
-  current = (current + 1) % bgPhotos.length;
-  bgPhotos[current].classList.add("active");
-}, 4500);
+  bgPhotos[currentIndex].classList.remove("active");
+  currentIndex = (currentIndex + 1) % bgPhotos.length;
+  bgPhotos[currentIndex].classList.add("active");
+}, 4500); // change every 4.5s
 
-// ====== HEART FLOW (FIXED) ======
+/* HEART FLOW EFFECT */
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.textContent = "💖";
-
-  // random horizontal position
   heart.style.left = Math.random() * window.innerWidth + "px";
 
-  // START AT BOTTOM
+  // start at bottom
   heart.style.top = window.innerHeight + "px";
 
-  // random size
-  heart.style.fontSize = 12 + Math.random() * 28 + "px";
-
-  // random speed
-  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
-
+  heart.style.fontSize = (12 + Math.random() * 30) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
   document.body.appendChild(heart);
 
-  setTimeout(() => heart.remove(), 8000);
+  setTimeout(() => heart.remove(), 9000);
 }
+setInterval(createHeart, 150); // many hearts continuously
 
-// spawn many hearts
-setInterval(createHeart, 150);
-
-
-// ====== VALENTINE YES/NO ======
+/* YES/NO LOGIC */
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const questionBox = document.getElementById("valentineQuestion");
+const question = document.getElementById("valentineQuestion");
 const musicBtn = document.getElementById("musicBtn");
 const letterBtn = document.getElementById("letterBtn");
 
-// stop No button after first click with floating
 let noClicked = false;
 noBtn.addEventListener("click", () => {
   if (!noClicked) {
     noClicked = true;
-    alert("Come on… say YES! 💖");
     noBtn.style.position = "absolute";
-
-    let moveInterval = setInterval(() => {
+    setInterval(() => {
       noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
       noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight) + "px";
     }, 300);
-
-    yesBtn.addEventListener("click", () => clearInterval(moveInterval));
   }
 });
 
-// ====== YES CLICK ======
 yesBtn.addEventListener("click", () => {
-  questionBox.style.display = "none";
-  musicBtn.style.display = "block";
-  letterBtn.style.display = "block";
+  question.style.display = "none"; // hide question
+  musicBtn.style.display = "block"; // show music control
+  letterBtn.style.display = "block"; // show love letter
 });
 
-// ====== MUSIC BUTTON ======
-const musicBtn = document.getElementById("musicBtn");
-const bgMusic = document.getElementById("bgMusic");
+/* MUSIC BUTTON */
+const bgMusic = new Audio("audio/music.mp3");
+bgMusic.loop = true;
 
 musicBtn.addEventListener("click", () => {
   if (bgMusic.paused) {
@@ -79,19 +64,18 @@ musicBtn.addEventListener("click", () => {
   }
 });
 
-
-// ====== LOVE LETTER POPUP ======
-const loveLetterPopup = document.getElementById("loveLetterPopup");
+/* LOVE LETTER POPUP */
+const modal = document.getElementById("loveLetterPopup");
 const closeLetter = document.getElementById("closeLetter");
 const letterContent = document.getElementById("letterContent");
 
 letterBtn.addEventListener("click", () => {
-  loveLetterPopup.style.display = "block";
-  letterContent.textContent = ""; // clear
+  modal.style.display = "block";
+  letterContent.textContent = ""; // clear first
 
   const text = `My Dearest Love,
 
-Every moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody.
+Every moment with you feels magical. Your smile lights up my world and your laughter grows warmth within my heart.
 
 Will you join me for a romantic dinner tonight?
 
@@ -99,12 +83,12 @@ With all my love,
 [Your Name]`;
 
   let i = 0;
-  const typeInterval = setInterval(() => {
+  const typeWriter = setInterval(() => {
     if (i < text.length) letterContent.textContent += text[i++];
-    else clearInterval(typeInterval);
-  }, 35);
+    else clearInterval(typeWriter);
+  }, 30);
 });
 
 closeLetter.addEventListener("click", () => {
-  loveLetterPopup.style.display = "none";
+  modal.style.display = "none";
 });
