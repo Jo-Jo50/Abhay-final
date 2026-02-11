@@ -37,16 +37,18 @@ function createHeart() {
 // Create more hearts for denser effect
 setInterval(createHeart, 300);
 
-/* =========================
-   MUSIC AUTOPLAY
-========================= */
+/* MUSIC AUTOPLAY */
 let audio = new Audio("audio/music.mp3");
 audio.loop = true;
-audio.volume = 0.4; // optional: lower volume to start
+
+// Try autoplay immediately
 audio.play().catch(() => {
-  // fallback if browser blocks autoplay
-  console.log("Autoplay blocked, music will play on interaction.");
+  // If blocked, wait for first user interaction
+  document.body.addEventListener("click", () => {
+    audio.play();
+  }, { once: true });
 });
+
 
 /* =========================
    YES / NO BUTTON LOGIC
@@ -77,13 +79,6 @@ yesBtn.addEventListener("click", () => {
   letterBtn.style.display = "block"; // show love letter button
 });
 
-/* =========================
-   MUSIC BUTTON TOGGLE
-========================= */
-musicBtn.addEventListener("click", () => {
-  if (audio.paused) audio.play();
-  else audio.pause();
-});
 
 /* =========================
    LOVE LETTER POPUP
