@@ -1,89 +1,45 @@
-/* BACKGROUND IMAGE SLIDER */
-const bgPhotos = document.querySelectorAll(".bg-photo");
-let currentBG = 0;
-setInterval(() => {
-  bgPhotos[currentBG].classList.remove("active");
-  currentBG = (currentBG + 1) % bgPhotos.length;
-  bgPhotos[currentBG].classList.add("active");
-}, 4000);
-
-/* HEART FLOW GENERATOR */
+/* ============================= */
+/* HEART FLOWING LOGIC           */
+/* ============================= */
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.textContent = "💖";
   heart.style.left = Math.random() * window.innerWidth + "px";
   heart.style.fontSize = 12 + Math.random() * 24 + "px";
-  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+  heart.style.animationDuration = 4 + Math.random() * 4 + "s"; // random speed
   document.body.appendChild(heart);
+
+  // remove heart after animation
   setTimeout(() => heart.remove(), 8000);
 }
 
-// generate many hearts continuously
-setInterval(createHeart, 300);
-
-/* YES/NO LOGIC */
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const valQ = document.getElementById("valentineQuestion");
-const musicBtn = document.getElementById("musicBtn");
+// continuously spawn hearts
+setInterval(createHeart, 200); // new heart every 200ms
+/* ============================= */
+/* LOVE LETTER POPUP             */
+/* ============================= */
 const letterBtn = document.getElementById("letterBtn");
-let audio = new Audio("audio/music.mp3");
-audio.loop = true;
-
-/* NO BUTTON FLOAT + HEART TRAIL */
-let noClicked = false;
-noBtn.addEventListener("click", () => {
-  if (!noClicked) {
-    noClicked = true;
-    alert("Come on… say YES 💖!");
-    noBtn.style.position = "absolute";
-    let interval = setInterval(() => {
-      noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
-      noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight) + "px";
-    }, 400);
-    yesBtn.addEventListener("click", () => clearInterval(interval));
-  }
-});
-
-/* YES BUTTON */
-yesBtn.addEventListener("click", () => {
-  valQ.style.display = "none";
-  musicBtn.style.display = "block";
-  letterBtn.style.display = "block";
-  audio.play().catch(() => {
-    console.log("Browser blocked autoplay, click the music button.");
-  });
-});
-
-/* MUSIC BUTTON */
-musicBtn.addEventListener("click", () => {
-  if (!audio.paused) {
-    audio.pause();
-    musicBtn.textContent = "🎵 Play Music";
-  } else {
-    audio.play();
-    musicBtn.textContent = "⏸ Pause Music";
-  }
-});
-
-/* LOVE LETTER POPUP */
-const loveLetterPopup = document.getElementById("loveLetterPopup");
-const closeLetter = document.getElementById("closeLetter");
+const modal = document.getElementById("loveLetterPopup");
+const closeBtn = document.getElementById("closeLetter");
 const letterContent = document.getElementById("letterContent");
 
 letterBtn.addEventListener("click", () => {
-  loveLetterPopup.style.display = "block";
-  letterContent.textContent = "";
+  modal.style.display = "block";
+  letterContent.textContent = ""; // clear before typing
+
   const text = `My Dearest Love,
 
-Every moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody...
+Every moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody.
+
+You make every day brighter and my heart happier.
 
 Will you join me for a romantic dinner tonight?
 
 With all my love,
 [Your Name]`;
 
+  // typewriting effect
   let i = 0;
   const type = setInterval(() => {
     if (i < text.length) letterContent.textContent += text[i++];
@@ -91,6 +47,6 @@ With all my love,
   }, 35);
 });
 
-closeLetter.addEventListener("click", () => {
-  loveLetterPopup.style.display = "none";
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
 });
