@@ -113,7 +113,7 @@ letterBtn.addEventListener("click", () => {
        letterContent.innerHTML += text[i] === "\n" ? "<br>" : text[i];
        i++;
      } else clearInterval(typeWriter);
-   }, 30);
+   }, 70);
 });
 
 // Close modal
