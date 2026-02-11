@@ -31,11 +31,16 @@ const noBtn = document.getElementById("noBtn");
 const question = document.getElementById("valentineQuestion");
 const musicBtn = document.getElementById("musicBtn");
 const letterBtn = document.getElementById("letterBtn");
+let audio = new Audio("audio/music.mp3");
+audio.loop = true;
 
 let noClicked = false;
 noBtn.addEventListener("click", () => {
   if (!noClicked) {
     noClicked = true;
+    if (!noClicked) {
+    noClicked = true;
+    alert("Come on… say YES 💖!");
     noBtn.style.position = "absolute";
     setInterval(() => {
       noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
@@ -51,7 +56,7 @@ yesBtn.addEventListener("click", () => {
 });
 
 /* MUSIC BUTTON */
-const bgMusic = new Audio("audio/music.mp3");
+/const bgMusic = new Audio("audio/music.mp3");
 bgMusic.loop = true;
 
 musicBtn.addEventListener("click", () => {
@@ -65,7 +70,7 @@ musicBtn.addEventListener("click", () => {
     bgMusic.pause();
     musicBtn.innerHTML = "🎵 Play Music";
   }
-});
+});/
 
 
 /* LOVE LETTER POPUP */
