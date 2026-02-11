@@ -23,7 +23,7 @@ function createHeart() {
 
   setTimeout(() => heart.remove(), 9000);
 }
-setInterval(createHeart, 150); // many hearts continuously
+setInterval(createHeart, 400); // many hearts continuously
 
 /* YES/NO LOGIC */
 const yesBtn = document.getElementById("yesBtn");
