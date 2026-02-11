@@ -1,13 +1,4 @@
-/* ========== FULL SCREEN BACKGROUND ========== */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-
+/* Make sure nothing blocks buttons — pointer-events none on BG */
 .bg-photo {
   position: fixed;
   top: 0;
@@ -16,37 +7,31 @@ html, body {
   height: 100vh;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 1.2s ease;
-  pointer-events: none;
+  pointer-events: none; /* Important so buttons are clickable */ 
   z-index: -1;
+  transition: opacity 1.2s ease;
 }
 
 .bg-photo.active {
   opacity: 1;
 }
 
-/* ========== HEART FLOWING EFFECT ========== */
+/* Hearts flow from bottom up */
 .heart {
   position: absolute;
   pointer-events: none;
   user-select: none;
   font-size: 22px;
-  animation: floatUp linear forwards;
   color: #ff4d6d;
+  animation: floatUp linear forwards;
 }
 
 @keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-140vh) rotate(360deg);
-    opacity: 0;
-  }
+  from { transform: translateY(0) rotate(0deg); opacity: 1; }
+  to   { transform: translateY(-140vh) rotate(360deg); opacity: 0; }
 }
 
-/* ========== QUESTION BOX ========== */
+/* Question box above hearts */
 .question {
   position: fixed;
   top: 30%;
@@ -54,50 +39,38 @@ html, body {
   transform: translateX(-50%);
   background: rgba(255,255,255,0.9);
   padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  z-index: 10;
-}
-
-.question p {
-  font-size: 28px;
-  color: #d60050;
-  margin-bottom: 15px;
+  border-radius: 10px;
+  z-index: 100; /* high layer so it’s clickable */
 }
 
 .button-group button {
+  padding: 12px 24px;
   margin: 8px;
-  padding: 12px 26px;
   font-size: 18px;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
   background: #ff4d6d;
   color: white;
-  transition: 0.2s ease;
+  border: none;
+  border-radius: 8px;
+  z-index: 110;
 }
 
-.button-group button:hover {
-  transform: scale(1.1);
-}
-
-/* ========== MUSIC & LOVE LETTER BUTTONS ========== */
+/* Buttons after Yes */
 #musicBtn, #letterBtn {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  padding: 10px 22px;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
   font-size: 18px;
-  border: none;
-  border-radius: 8px;
+  cursor: pointer;
   background: #ff4d6d;
   color: white;
-  cursor: pointer;
-  z-index: 10;
-  margin-left: 10px;
+  border: none;
+  border-radius: 8px;
+  z-index: 100;
 }
 
-/* ========== LOVE LETTER POPUP ========== */
+/* Love Letter Modal */
 .modal {
   display: none;
   position: fixed;
@@ -108,17 +81,16 @@ html, body {
   max-width: 480px;
   max-height: 70%;
   background: white;
-  border-radius: 12px;
   padding: 20px;
-  overflow-y: auto; /* Scroll if text is too long */
+  overflow-y: auto; /* text will scroll here */
+  border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  z-index: 15;
+  z-index: 200;
 }
 
 .close {
   float: right;
-  font-size: 26px;
+  font-size: 24px;
   cursor: pointer;
-  margin-top: -10px;
-  margin-right: -5px;
+  margin-bottom: 10px;
 }
