@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Be My Valentine? 💕</title>
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? 💕</title>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <!-- Background Photos -->
-  <div class="bg-container">
+  <!-- Background Container -->
+  <div id="bgContainer">
     <img src="images/IMG1.jpg" class="bg-photo active">
     <img src="images/IMG2.jpg" class="bg-photo">
     <img src="images/IMG3.jpg" class="bg-photo">
@@ -18,7 +18,7 @@
   </div>
 
   <!-- Valentine Question -->
-  <div id="valentineQuestion" class="question fade-in">
+  <div id="valentineQuestion" class="question">
     <p>Will you be my Valentine? 💖</p>
     <div class="button-group">
       <button id="yesBtn">Yes</button>
@@ -26,17 +26,18 @@
     </div>
   </div>
 
-  <!-- Love Letter Button (hidden until Yes) -->
+  <!-- Music & Love Letter Buttons -->
+  <button id="musicBtn" style="display:none;">🎵 Play Music</button>
   <button id="letterBtn" style="display:none;">📜 Love Letter</button>
 
-  <!-- Love Letter Container -->
-  <div id="loveLetter" class="fade-in">
-    <pre id="letterContent"></pre>
+  <!-- Love Letter Popup -->
+  <div id="loveLetterPopup" class="modal">
+    <div class="modal-content">
+      <span id="closeLetter" class="close">&times;</span>
+      <pre id="letterContent"></pre>
+    </div>
   </div>
 
-  <!-- Music Button -->
-  <button id="musicBtn" style="display:none;">🎵 Play Music</button>
-
-  <script src="js/script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
