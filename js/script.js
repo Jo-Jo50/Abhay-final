@@ -1,83 +1,86 @@
-/* BACKGROUND IMAGE SLIDER */
+// ====== BACKGROUND IMAGE SLIDER ======
 const bgPhotos = document.querySelectorAll(".bg-photo");
-let currentBG = 0;
+let current = 0;
 setInterval(() => {
-  bgPhotos[currentBG].classList.remove("active");
-  currentBG = (currentBG + 1) % bgPhotos.length;
-  bgPhotos[currentBG].classList.add("active");
-}, 4000);
+  bgPhotos[current].classList.remove("active");
+  current = (current + 1) % bgPhotos.length;
+  bgPhotos[current].classList.add("active");
+}, 4500);
 
-/* HEART FLOW GENERATOR */
+// ====== HEART FLOW ======
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.textContent = "💖";
   heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.fontSize = 12 + Math.random() * 24 + "px";
+
+  const size = 12 + Math.random() * 30;
+  heart.style.fontSize = size + "px";
+
+  // random animation duration
   heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+
   document.body.appendChild(heart);
+
   setTimeout(() => heart.remove(), 8000);
 }
+// spawn many hearts continuously
+setInterval(createHeart, 200);
 
-// generate many hearts continuously
-setInterval(createHeart, 300);
-
-/* YES/NO LOGIC */
+// ====== VALENTINE YES/NO ======
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const valQ = document.getElementById("valentineQuestion");
+const questionBox = document.getElementById("valentineQuestion");
 const musicBtn = document.getElementById("musicBtn");
 const letterBtn = document.getElementById("letterBtn");
-let audio = new Audio("audio/music.mp3");
-audio.loop = true;
 
-/* NO BUTTON FLOAT + HEART TRAIL */
+// stop No button after first click with floating
 let noClicked = false;
 noBtn.addEventListener("click", () => {
   if (!noClicked) {
     noClicked = true;
-    alert("Come on… say YES 💖!");
+    alert("Come on… say YES! 💖");
     noBtn.style.position = "absolute";
-    let interval = setInterval(() => {
+
+    let moveInterval = setInterval(() => {
       noBtn.style.left = Math.random() * (window.innerWidth - noBtn.offsetWidth) + "px";
       noBtn.style.top = Math.random() * (window.innerHeight - noBtn.offsetHeight) + "px";
-    }, 400);
-    yesBtn.addEventListener("click", () => clearInterval(interval));
+    }, 300);
+
+    yesBtn.addEventListener("click", () => clearInterval(moveInterval));
   }
 });
 
-/* YES BUTTON */
+// ====== YES CLICK ======
 yesBtn.addEventListener("click", () => {
-  valQ.style.display = "none";
+  questionBox.style.display = "none";
   musicBtn.style.display = "block";
   letterBtn.style.display = "block";
-  audio.play().catch(() => {
-    console.log("Browser blocked autoplay, click the music button.");
-  });
 });
 
-/* MUSIC BUTTON */
+// ====== MUSIC BUTTON ======
+let audio;
 musicBtn.addEventListener("click", () => {
-  if (!audio.paused) {
-    audio.pause();
-    musicBtn.textContent = "🎵 Play Music";
-  } else {
-    audio.play();
-    musicBtn.textContent = "⏸ Pause Music";
+  if (!audio) {
+    audio = new Audio("audio/music.mp3"); // must exist
+    audio.loop = true;
   }
+  audio.play();
+  musicBtn.textContent = "⏸ Pause Music";
 });
 
-/* LOVE LETTER POPUP */
+// ====== LOVE LETTER POPUP ======
 const loveLetterPopup = document.getElementById("loveLetterPopup");
 const closeLetter = document.getElementById("closeLetter");
 const letterContent = document.getElementById("letterContent");
 
 letterBtn.addEventListener("click", () => {
   loveLetterPopup.style.display = "block";
-  letterContent.textContent = "";
+  letterContent.textContent = ""; // clear
+
   const text = `My Dearest Love,
 
-Every moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody...
+Every moment with you feels magical. Your smile lights up my world and your laughter is my favorite melody.
 
 Will you join me for a romantic dinner tonight?
 
@@ -85,9 +88,9 @@ With all my love,
 [Your Name]`;
 
   let i = 0;
-  const type = setInterval(() => {
+  const typeInterval = setInterval(() => {
     if (i < text.length) letterContent.textContent += text[i++];
-    else clearInterval(type);
+    else clearInterval(typeInterval);
   }, 35);
 });
 
