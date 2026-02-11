@@ -45,16 +45,22 @@
 /* =========================
    QUESTION BOX
 ========================= */
+/* Valentine Question Box */
 .question {
   position: fixed;
-  top: 30%;
+  top: 20%; /* move slightly higher */
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
-  padding: 25px;
+  background: rgba(255,255,255,0.95);
+  padding: 40px 50px; /* more padding */
   border-radius: 12px;
   z-index: 100;
+  max-width: 90%;
+  width: 450px; /* larger width */
   text-align: center;
+  font-size: 22px; /* bigger font for readability */
+  line-height: 1.5;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
 
 .button-group button {
